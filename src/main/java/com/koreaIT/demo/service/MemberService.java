@@ -1,45 +1,31 @@
 package com.koreaIT.demo.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.koreaIT.demo.repository.ArticleRepository;
+import com.koreaIT.demo.repository.MemberRepository;
 import com.koreaIT.demo.vo.Member;
 
 @Service
 public class MemberService {
 	
-	private ArticleRepository articleRepository;
+	private MemberRepository memberRepository;
 	
 	@Autowired
-	public MemberService(MemberRepository MemberRepository) {
+	public MemberService(MemberRepository memberRepository) {
 		this.memberRepository = memberRepository;
 	}
 	
-	public void writeArticle(String title, String body) {
-		articleRepository.writeArticle(title, body);
+	public void doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email) {
+		memberRepository.doJoin(loginId, loginPw, name, nickname, cellphoneNum, email);
 	}
 	
 	public int getLastInsertId() {
-		return articleRepository.getLastInsertId();
+		return memberRepository.getLastInsertId();
 	}
-	
-	public Member getArticleById(int id) {
-		return MemberRepository.getMemberById(id);
-	}
-	
-	public List<Member> getArticles(){
-		return MemberRepository.getMembers();
-	}
-	
-	public void modifyArticle(int id, String title, String body) {
-		articleRepository.modifyArticle(id, title, body);
-	}
-	
-	public void deleteArticle(int id) {
-		articleRepository.deleteArticle(id);
+
+	public Member getMemberById(int id) {
+		return memberRepository.getMemberById(id);
 	}
 	
 }

@@ -1,14 +1,12 @@
 package com.koreaIT.demo.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.koreaIT.demo.service.ArticleService;
-import com.koreaIT.demo.vo.Article;
+import com.koreaIT.demo.service.MemberService;
+import com.koreaIT.demo.vo.Member;
 
 @Controller
 public class UsrMemberController {
@@ -21,63 +19,15 @@ public class UsrMemberController {
 	}
 	
 	// 액션 메서드
-	@RequestMapping("/usr/article/doAdd")
+	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
-	public Article doAdd(String title, String body) {
+	public Member doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email) {
 		
-		articleService.writeArticle(title, body);
+		memberService.doJoin(loginId, loginPw, name, nickname, cellphoneNum, email);
 		
-		int id = articleService.getLastInsertId();
+		int id = memberService.getLastInsertId();
 		
-		return articleService.getArticleById(id);
+		return memberService.getMemberById(id);
 	}
 	
-	@RequestMapping("/usr/article/getArticle")
-	@ResponseBody
-	public Object getArticle(int id) {
-		
-		Article article = articleService.getArticleById(id);
-		
-		if(article == null) {
-			return id + "번 게시물은 존재하지 않습니다.";
-		}
-		
-		return article;
-	}
-	
-	@RequestMapping("/usr/article/getArticles")
-	@ResponseBody
-	public List<Article> getArticles() {
-		return articleService.getArticles();
-	}
-	
-	@RequestMapping("/usr/article/doModify")
-	@ResponseBody
-	public String doModify(int id, String title, String body) {
-		
-		Article article = articleService.getArticleById(id);
-		
-		if(article == null) {
-			return id + "번 게시물은 존재하지 않습니다.";
-		}
-		
-		articleService.modifyArticle(id, title, body);
-		
-		return id + "번 게시물을 수정했습니다";
-	}
-	
-	@RequestMapping("/usr/article/doDelete")
-	@ResponseBody
-	public String doDelete(int id) {
-		
-		Article article = articleService.getArticleById(id);
-		
-		if(article == null) {
-			return id + "번 게시물은 존재하지 않습니다.";
-		}
-		
-		articleService.deleteArticle(id);
-		
-		return id + "번 게시물을 삭제했습니다";
-	}
 }
