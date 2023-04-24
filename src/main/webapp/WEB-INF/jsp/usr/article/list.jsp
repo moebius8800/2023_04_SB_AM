@@ -6,7 +6,7 @@
 	<section class="mt-8 text-xl">
 		<div class="container mx-auto px-3">
 			<div class="table-box-type-1">
-				<table border="1">
+				<table>
 					<thead>
 						<tr>
 							<th>번호</th>
@@ -21,7 +21,7 @@
 								<td>${article.id }</td>
 								<td>${article.regDate.substring(2, 16) }</td>
 								<td><a class="hover:underline" href="detail?id=${article.id }">${article.title }</a></td>
-								<td>${article.memberId }</td>
+								<td>${article.writerName }</td>
 							</tr>
 						</c:forEach>
 					</tbody>
